@@ -1,0 +1,320 @@
+#######################################################
+#	Version: 0.2
+#   Licence: GNU GPL
+#	Autor: Andres Herrera
+#   Contact: fabio.herrera at correounivalle.edu.co
+#######################################################
+# Documentation
+#
+# https://www.mapserver.org/ogc/wms_server.html?highlight=wms%20server
+#
+################
+# WMS Request
+################
+# http://localhost:90/cgi-bin/mapserv?map=/var/www/html/geoinformacion/mapserver-geoinformacion/ejemplo9.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
+################
+#
+#
+
+MAP
+	NAME Ejemplo9
+		SIZE 800 600
+		STATUS ON
+		#EXTENT [xmin] [ymin] [xmax] [ymax]
+		EXTENT 1053855.50 860198.93 1068480.77 879011.06
+		
+		SHAPEPATH "geodata/"
+		FONTSET "lib/fonts/fonts.txt"
+		SYMBOLSET "lib/symbols/symbols.sym"
+		
+		IMAGECOLOR 255 250 255
+		UNITS METERS
+
+	WEB
+		IMAGEPATH "/var/www/html/geoinformacion/mapserver-geoinformacion/tmp/"
+		IMAGEURL "tmp/"
+		METADATA
+			"ows_title" "Servidor WMS y WFS Ejemplo Mapserver"
+			"wms_title" "Servidor WMS y WFS Ejemplo Mapserver"
+			"wms_version" "1.1.1"
+			"wms_onlineresource" "http://localhost:90/cgi-bin/mapserv?map=/var/www/html/geoinformacion/mapserver-geoinformacion/ejemplo10.map&"
+			"wms_srs" "EPSG:3115"
+			"wfs_srs" "EPSG:3115"
+			"wms_enable_request" "*"
+			"ows_enable_request" "*"
+			"wms_feature_info_mime_type" "text/html"
+			"wms_format" "image/png"
+			
+			"wms_contactelectronicmailaddress" "fabio.herrera@correounivalle.edu.co"
+			"wms_contactperson" "Andres Herrera"
+			"wms_contactorganization" "Univalle"
+			"wms_contactposition" "Escuela de Ing Civil y Geomatica"
+		END
+	END
+	
+	PROJECTION
+		"init=epsg:3115"
+	END
+
+	#Leyenda embebida
+	LEGEND
+		STATUS EMBED
+		IMAGECOLOR 248 243 43
+		POSITION LL
+		KEYSIZE 20 12
+		KEYSPACING 5 5
+		LABEL
+			TYPE TRUETYPE
+			FONT "sans"
+			SIZE 9
+			COLOR 0 0 0
+       
+		END
+		OUTLINECOLOR 51 51 51
+		#TRANSPARENT on
+	END
+	
+	SCALEBAR
+		STYLE 0
+		#STATUS OFF
+		STATUS EMBED
+		SIZE 250 4
+		COLOR 0 0 0
+		UNITS METERS
+		INTERVALS 5
+		TRANSPARENT off
+		POSITION LR
+		BACKGROUNDCOLOR 255 255 255
+		IMAGECOLOR 255 255 255
+		OUTLINECOLOR 211 211 211
+		LABEL
+			COLOR 0 0 0
+			SIZE TINY
+		END 
+	END
+
+  
+LAYER
+		NAME "Sur"
+		TYPE POINT
+		STATUS ON
+		TRANSFORM OFF
+		POSTLABELCACHE TRUE
+		FEATURE
+			POINTS 
+				665 58
+			END
+		END
+		CLASS
+			SYMBOL 'rosavientos'
+                        SIZE 49
+			COLOR 0 0 0
+			OUTLINECOLOR 0 0 0
+			STYLE END
+		END
+	END
+
+	LAYER
+		NAME "Poligonos"
+		STATUS ON
+		DATA "barrios_cali.shp"
+		TYPE POLYGON
+		
+		LABELITEM "barrio"
+		LABELCACHE ON
+		
+		METADATA
+			"wms_title" "Barrios"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+
+       		CLASS
+			NAME "Barrios Cali"
+			STYLE
+				COLOR 59 131 189
+				OUTLINECOLOR 0 0 0
+			END
+			
+			LABEL
+				COLOR 0 0 0
+				FONT sans
+				TYPE TRUETYPE
+				POSITION CC
+				PARTIALS TRUE
+				SIZE 7
+				BUFFER 1
+				OUTLINECOLOR 255 255 255
+			END
+		END
+	END
+	
+	LAYER
+		NAME "Lineas"
+		STATUS ON
+		DATA "rutas_mio.shp"
+		TYPE LINE
+		
+		METADATA
+			"wms_title" "Rutas Mio"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+		
+		CLASS
+			NAME "Rutas MIO"
+			STYLE
+				COLOR 200 29 27
+				OUTLINECOLOR 7 123 123
+			END
+		END
+	END
+  LAYER
+		NAME "Poligonos"
+		STATUS ON
+		DATA "Areas_protegidas.shp"
+		TYPE POLYGON
+		
+		
+		LABELCACHE ON
+		
+		METADATA
+			"wms_title" "Areas_protegidas"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+	CLASS
+			NAME "Areas_protegidas"
+			STYLE
+				COLOR 0 143 57
+				OUTLINECOLOR 45 87 44
+                                SIZE 8
+			END
+		END
+	END
+
+ LAYER
+		NAME "Poligonos"
+		STATUS ON
+		DATA "Zona_ambiental_Rio_Cauca.shp"
+		TYPE POLYGON
+		
+		
+		LABELCACHE ON
+		
+		METADATA
+			"wms_title" "ZonaRioCauca"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+	CLASS
+			NAME "ZonaRioCauca"
+			STYLE
+				COLOR 0 14 57
+				OUTLINECOLOR 45 87 44
+                                SIZE 8
+			END
+		END
+	END
+
+LAYER
+		NAME "Lineas"
+		STATUS ON
+		DATA "vias_cali.shp"
+		TYPE LINE
+		
+		METADATA
+			"wms_title" "vias_cali"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+		
+		CLASS
+			NAME "vias_cali"
+			STYLE
+				COLOR 20 29 27
+				OUTLINECOLOR 7 123 123
+			END
+		END
+	END
+
+        LAYER
+		NAME "Lineas"
+		STATUS ON
+		DATA "rios.shp"
+		TYPE LINE
+		
+		METADATA
+			"wms_title" "rios"
+			"wms_srs" "EPSG:4326"
+			"wms_server_version" "1.1.1"
+		END
+		
+		CLASS
+			NAME "rios"
+			STYLE
+				COLOR 115 194 251
+				OUTLINECOLOR 7 123 123
+			END
+		END
+	END
+
+	LAYER
+		NAME "Puntos"
+		STATUS ON
+		DATA "estaciones_mio.shp"
+		TYPE POINT
+		
+		METADATA
+			"wms_title" "Estaciones MIO"
+			"wms_srs" "EPSG:3115"
+			"wms_server_version" "1.1.1"
+		END
+		
+		CLASS
+			NAME "Estaciones MIO"
+			STYLE
+			    SYMBOL "circlef"
+				SIZE 7
+				COLOR 0 34 125
+				OUTLINECOLOR 0 0 0
+			END
+		END
+	END
+	
+	LAYER
+		NAME "Grilla"
+		METADATA
+			"DESCRIPTION" "Grid"
+		END
+		TYPE LINE
+		STATUS ON
+		CLASS
+			NAME "Graticule"
+			COLOR 0 0 0
+			LABEL
+				COLOR 255 0 0
+				FONT sans
+				TYPE truetype
+				SIZE 8
+				POSITION AUTO
+				PARTIALS FALSE
+				BUFFER 5
+				OUTLINECOLOR 255 255 255
+			END
+		END
+		PROJECTION
+			"init=epsg:3115"
+		END
+		GRID
+			#LABELFORMAT DDMM
+			#MAXARCS 5
+			#MAXINTERVAL 5
+			#MAXSUBDIVIDE 2
+			
+			LABELFORMAT '%.0fm'
+			MININTERVAL 1000
+		END
+	END
+	
+END
